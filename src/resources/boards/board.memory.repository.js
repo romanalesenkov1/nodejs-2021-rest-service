@@ -1,16 +1,4 @@
-let boards = [
-  {
-    id: 'string',
-    title: 'string',
-    columns: [
-      {
-        id: 'string',
-        title: 'string',
-        order: 0,
-      },
-    ],
-  },
-];
+let boards = [];
 
 const getAll = async () => boards;
 
