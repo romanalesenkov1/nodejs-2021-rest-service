@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+import { v4 as uuid } from 'uuid';
 
 /**
  * @namespace board
@@ -14,11 +14,11 @@ class Board {
    * @property {string} board.title - The title of the board.
    * @property {array} board.columns - The columns of the board.
    */
-  constructor({ id = uuid.v4(), title = 'BOARD', columns = [] } = {}) {
+  constructor({ id = uuid(), title = 'BOARD', columns = [] } = {}) {
     this.id = id;
     this.title = title;
     this.columns = columns;
   }
 }
 
-module.exports = Board;
+export default Board;

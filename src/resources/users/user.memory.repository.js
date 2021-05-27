@@ -51,4 +51,4 @@ const remove = async (id) => {
   return userToDelete;
 };
 
-module.exports = { getAll, create, getById, update, remove };
+export default { getAll, create, getById, update, remove };

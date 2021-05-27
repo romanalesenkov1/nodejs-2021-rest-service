@@ -1,6 +1,6 @@
-const boardsRepo = require('./board.memory.repository');
-const Board = require('./board.model');
-const tasksService = require('../tasks/task.service');
+import boardsRepo from './board.memory.repository.js';
+import Board from './board.model.js';
+import tasksService from '../tasks/task.service.js';
 
 /**
  * Returns all boards
@@ -51,4 +51,4 @@ const remove = async (id) => {
   return tasksService.removeAllByBoardId(id);
 };
 
-module.exports = { getAll, create, getById, update, remove };
+export default { getAll, create, getById, update, remove };

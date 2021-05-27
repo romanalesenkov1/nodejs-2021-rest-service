@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+import { v4 as uuid } from 'uuid';
 
 /**
  * @namespace task
@@ -19,7 +19,7 @@ class Task {
    * @property {string} task.columnId - The id of the column.
    */
   constructor({
-    id = uuid.v4(),
+    id = uuid(),
     title = 'TASK',
     order = 0,
     description = 'description',
@@ -37,4 +37,4 @@ class Task {
   }
 }
 
-module.exports = Task;
+export default Task;

@@ -52,4 +52,4 @@ const remove = async (id) => {
   return {};
 };
 
-module.exports = { getAll, create, getById, update, remove };
+export default { getAll, create, getById, update, remove };

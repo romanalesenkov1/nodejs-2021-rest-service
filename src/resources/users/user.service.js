@@ -1,6 +1,6 @@
-const usersRepo = require('./user.memory.repository');
-const User = require('./user.model');
-const tasksService = require('../tasks/task.service');
+import usersRepo from './user.memory.repository.js';
+import User from './user.model.js';
+import tasksService from '../tasks/task.service.js';
 
 /**
  * Returns all users
@@ -51,4 +51,4 @@ const remove = async (id) => {
   return tasksService.unassignAllTasksByUserId(id);
 };
 
-module.exports = { getAll, create, getById, update, remove };
+export default { getAll, create, getById, update, remove };

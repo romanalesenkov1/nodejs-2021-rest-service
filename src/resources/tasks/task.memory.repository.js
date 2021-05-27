@@ -74,7 +74,7 @@ const removeAllByBoardId = async (boardId) => {
   return [];
 };
 
-module.exports = {
+export default {
   getAllByBoardId,
   create,
   getByBoardIdByTaskId,

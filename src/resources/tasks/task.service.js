@@ -1,5 +1,5 @@
-const tasksRepo = require('./task.memory.repository');
-const Task = require('./task.model');
+import tasksRepo from './task.memory.repository.js';
+import Task from './task.model.js';
 
 /**
  * Returns all tasks by boardId
@@ -80,7 +80,7 @@ const unassignAllTasksByUserId = async (userId) => {
   );
 };
 
-module.exports = {
+export default {
   getAllByBoardId,
   create,
   getByBoardIdByTaskId,
