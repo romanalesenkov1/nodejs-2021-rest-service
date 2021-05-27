@@ -7,9 +7,7 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const task = await tasksService.create(req.body, {
-    boardId: req.params.boardId,
-  });
+  const task = await tasksService.create(req.body, req.params.boardId);
   res.status(201).json(task);
 });
 

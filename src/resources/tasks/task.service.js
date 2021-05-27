@@ -1,27 +1,67 @@
 const tasksRepo = require('./task.memory.repository');
 const Task = require('./task.model');
 
+/**
+ * Returns all tasks by boardId
+ * @returns {Promise<Task[]>} tasks
+ */
 const getAllByBoardId = (boardId) => tasksRepo.getAllByBoardId(boardId);
 
+/**
+ * Returns all tasks by userId
+ * @returns {Promise<Task[]>} tasks
+ */
 const getAllByUserId = (userId) => tasksRepo.getAllByUserId(userId);
 
-const create = (data, { boardId }) => {
+/**
+ * Creates a task
+ * @param {Task} data - data for task creation
+ * @param {string} boardId - board Id
+ * @returns {Promise<Task>} task
+ */
+const create = (data, boardId) => {
   const createdTask = new Task({ ...data, boardId, id: undefined });
   return tasksRepo.create(createdTask);
 };
 
+/**
+ * Returns task by boardId and task id
+ * @param {string} boardId - board id
+ * @param {string} id - task id
+ * @returns {Promise<Task>} task
+ */
 const getByBoardIdByTaskId = (boardId, id) =>
   tasksRepo.getByBoardIdByTaskId(boardId, id);
 
+/**
+ * Updates a task
+ * @param {Task} data - data for task update
+ * @returns {Promise<Task>} task
+ */
 const update = (data) => {
   const task = new Task(data);
   return tasksRepo.update(task);
 };
 
+/**
+ * Removes a task
+ * @param {string} id - id of the task
+ * @returns {Promise}
+ */
 const remove = (id) => tasksRepo.remove(id);
 
+/**
+ * Removes all tasks by boardId
+ * @param {string} id - boardId
+ * @returns {Promise}
+ */
 const removeAllByBoardId = (id) => tasksRepo.removeAllByBoardId(id);
 
+/**
+ * Unassign all tasks by user id
+ * @param {string} userId - userId
+ * @returns {Promise}
+ */
 const unassignAllTasksByUserId = async (userId) => {
   const tasksByUserId = await getAllByUserId(userId);
 
