@@ -1,20 +1,44 @@
 let users = [];
 
+/**
+ * Returns the all users
+ * @returns {Promise<User[]>}
+ */
 const getAll = async () => users;
 
+/**
+ * Creates user
+ * @param {User} user
+ * @returns {Promise<User>}
+ */
 const create = async (user) => {
   users = [...users, user];
   return user;
 };
 
+/**
+ * Returns user by id
+ * @param {string} id
+ * @returns {Promise<User>}
+ */
 const getById = async (id) => users.find((user) => user.id === id);
 
+/**
+ * Updates user
+ * @param {User} userToUpdate
+ * @returns {Promise<User>}
+ */
 const update = async (userToUpdate) => {
   const filteredUsers = users.filter((user) => user.id !== userToUpdate.id);
   users = [...filteredUsers, userToUpdate];
   return userToUpdate;
 };
 
+/**
+ * Removes user
+ * @param {string} id
+ * @returns {Promise<User>}
+ */
 const remove = async (id) => {
   const filteredUsers = users.filter((user) => user.id !== id);
   const userToDelete = users.find((user) => user.id === id);
