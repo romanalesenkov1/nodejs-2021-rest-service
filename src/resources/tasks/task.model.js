@@ -1,5 +1,9 @@
 const uuid = require('uuid');
 
+/**
+ * @namespace task
+ */
+
 /** Class representing a task. */
 class Task {
   /**

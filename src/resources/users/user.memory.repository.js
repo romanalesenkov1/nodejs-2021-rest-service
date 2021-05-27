@@ -2,12 +2,14 @@ let users = [];
 
 /**
  * Returns the all users
+ * @memberof user#
  * @returns {Promise<User[]>}
  */
 const getAll = async () => users;
 
 /**
  * Creates user
+ * @memberof user#
  * @param {User} user
  * @returns {Promise<User>}
  */
@@ -18,6 +20,7 @@ const create = async (user) => {
 
 /**
  * Returns user by id
+ * @memberof user#
  * @param {string} id
  * @returns {Promise<User>}
  */
@@ -25,6 +28,7 @@ const getById = async (id) => users.find((user) => user.id === id);
 
 /**
  * Updates user
+ * @memberof user#
  * @param {User} userToUpdate
  * @returns {Promise<User>}
  */
@@ -36,6 +40,7 @@ const update = async (userToUpdate) => {
 
 /**
  * Removes user
+ * @memberof user#
  * @param {string} id
  * @returns {Promise<User>}
  */

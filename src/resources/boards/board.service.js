@@ -4,12 +4,14 @@ const tasksService = require('../tasks/task.service');
 
 /**
  * Returns all boards
+ * @memberof board#
  * @returns {Promise<Board[]>} boards
  */
 const getAll = () => boardsRepo.getAll();
 
 /**
  * Creates a board
+ * @memberof board#
  * @param {Board} data - data for board creation
  * @returns {Promise<Board>} board
  */
@@ -20,6 +22,7 @@ const create = (data) => {
 
 /**
  * Returns board by id
+ * @memberof board#
  * @param {string} id - board id
  * @returns {Promise<Board>} board
  */
@@ -27,6 +30,7 @@ const getById = (id) => boardsRepo.getById(id);
 
 /**
  * Updates a board
+ * @memberof board#
  * @param {string} id - id of the board
  * @param {Board} data - data for board update
  * @returns {Promise<Board>} user
@@ -38,6 +42,7 @@ const update = (id, data) => {
 
 /**
  * Removes a board
+ * @memberof board#
  * @param {string} id - id of the board
  * @returns {Promise}
  */

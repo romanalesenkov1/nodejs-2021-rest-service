@@ -1,5 +1,9 @@
 const uuid = require('uuid');
 
+/**
+ * @namespace user
+ */
+
 /** Class representing a user. */
 class User {
   /**
@@ -34,6 +38,7 @@ class User {
   /**
    * Map user fields to exclude secret fields like "password"
    * @static
+   * @memberof user#
    * @param {User} user - The {@link User}
    * @return {ResponseUser} responseUser
    */

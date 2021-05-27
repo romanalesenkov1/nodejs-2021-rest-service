@@ -2,12 +2,14 @@ let boards = [];
 
 /**
  * Returns the all users
+ * @memberof board#
  * @returns {Promise<Board[]>}
  */
 const getAll = async () => boards;
 
 /**
  * Creates board
+ * @memberof board#
  * @param {Board} board
  * @returns {Promise<Board>}
  */
@@ -18,6 +20,7 @@ const create = async (board) => {
 
 /**
  * Returns board by id
+ * @memberof board#
  * @param {string} id
  * @returns {Promise<Board>}
  */
@@ -25,6 +28,7 @@ const getById = async (id) => boards.find((board) => board.id === id);
 
 /**
  * Updates board
+ * @memberof board#
  * @param {Board} boardToUpdate
  * @returns {Promise<Board>}
  */
@@ -38,6 +42,7 @@ const update = async (boardToUpdate) => {
 
 /**
  * Removes board
+ * @memberof board#
  * @param {string} id
  * @returns {{}}
  */
