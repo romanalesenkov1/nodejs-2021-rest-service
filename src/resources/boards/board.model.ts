@@ -6,6 +6,12 @@ import { v4 as uuid } from 'uuid';
 
 /** Class representing a board. */
 class Board {
+  id?: string;
+
+  title?: string;
+
+  columns?: [];
+
   /**
    * Create a board.
    * @constructor
@@ -14,7 +20,7 @@ class Board {
    * @property {string} board.title - The title of the board.
    * @property {array} board.columns - The columns of the board.
    */
-  constructor({ id = uuid(), title = 'BOARD', columns = [] } = {}) {
+  constructor({ id = uuid(), title = 'BOARD', columns = [] }: Board = {}) {
     this.id = id;
     this.title = title;
     this.columns = columns;

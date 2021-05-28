@@ -1,4 +1,6 @@
-let boards = [];
+import Board from './board.model';
+
+let boards: Board[] = [];
 
 /**
  * Returns the all users
@@ -13,7 +15,7 @@ const getAll = async () => boards;
  * @param {Board} board
  * @returns {Promise<Board>}
  */
-const create = async (board) => {
+const create = async (board: Board) => {
   boards = [...boards, board];
   return board;
 };
@@ -24,7 +26,7 @@ const create = async (board) => {
  * @param {string} id
  * @returns {Promise<Board>}
  */
-const getById = async (id) => boards.find((board) => board.id === id);
+const getById = async (id: string) => boards.find((board) => board.id === id);
 
 /**
  * Updates board
@@ -32,7 +34,7 @@ const getById = async (id) => boards.find((board) => board.id === id);
  * @param {Board} boardToUpdate
  * @returns {Promise<Board>}
  */
-const update = async (boardToUpdate) => {
+const update = async (boardToUpdate: Board) => {
   const filteredBoards = boards.filter(
     (board) => board.id !== boardToUpdate.id
   );
@@ -46,7 +48,7 @@ const update = async (boardToUpdate) => {
  * @param {string} id
  * @returns {{}}
  */
-const remove = async (id) => {
+const remove = async (id: string) => {
   const filteredUsers = boards.filter((board) => board.id !== id);
   boards = [...filteredUsers];
   return {};

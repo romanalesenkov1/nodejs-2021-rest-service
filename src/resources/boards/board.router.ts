@@ -1,9 +1,9 @@
 import express from 'express';
-import boardsService from './board.service.js';
+import boardsService from './board.service';
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
+router.route('/').get(async (_req, res) => {
   const boards = await boardsService.getAll();
   res.json(boards);
 });

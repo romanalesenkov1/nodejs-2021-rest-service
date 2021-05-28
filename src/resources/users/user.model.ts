@@ -6,13 +6,13 @@ import { v4 as uuid } from 'uuid';
 
 /** Class representing a user. */
 class User {
-  id: string;
+  id?: string;
 
-  name: string;
+  name?: string;
 
-  login: string;
+  login?: string;
 
-  password: string;
+  password?: string;
 
   /**
    * Create a user.
@@ -28,7 +28,7 @@ class User {
     name = 'USER',
     login = 'user',
     password = 'P@55w0rd',
-  } = {}) {
+  }: User = {}) {
     this.id = id;
     this.name = name;
     this.login = login;
