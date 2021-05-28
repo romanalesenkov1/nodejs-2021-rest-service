@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "es2020",
-    "allowJs": false,
+    "allowJs": true,
     "outDir": "./build",
     "rootDir": "./src",
     "downlevelIteration": false,
@@ -18,8 +18,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "compiler": "ttypescript"
   },
   "exclude": [
     "node_modules/"
