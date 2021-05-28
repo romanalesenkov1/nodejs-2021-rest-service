@@ -1,19 +1,19 @@
-import tasksRepo from './task.memory.repository.js';
-import Task from './task.model.js';
+import tasksRepo from './task.memory.repository';
+import Task from './task.model';
 
 /**
  * Returns all tasks by boardId
  * @memberof task#
  * @returns {Promise<Task[]>} tasks
  */
-const getAllByBoardId = (boardId) => tasksRepo.getAllByBoardId(boardId);
+const getAllByBoardId = (boardId: string) => tasksRepo.getAllByBoardId(boardId);
 
 /**
  * Returns all tasks by userId
  * @memberof task#
  * @returns {Promise<Task[]>} tasks
  */
-const getAllByUserId = (userId) => tasksRepo.getAllByUserId(userId);
+const getAllByUserId = (userId: string) => tasksRepo.getAllByUserId(userId);
 
 /**
  * Creates a task
@@ -22,7 +22,7 @@ const getAllByUserId = (userId) => tasksRepo.getAllByUserId(userId);
  * @param {string} boardId - board Id
  * @returns {Promise<Task>} task
  */
-const create = (data, boardId) => {
+const create = (data: Task, boardId: string) => {
   const createdTask = new Task({ ...data, boardId, id: undefined });
   return tasksRepo.create(createdTask);
 };
@@ -34,7 +34,7 @@ const create = (data, boardId) => {
  * @param {string} id - task id
  * @returns {Promise<Task>} task
  */
-const getByBoardIdByTaskId = (boardId, id) =>
+const getByBoardIdByTaskId = (boardId: string, id: string) =>
   tasksRepo.getByBoardIdByTaskId(boardId, id);
 
 /**
@@ -43,7 +43,7 @@ const getByBoardIdByTaskId = (boardId, id) =>
  * @param {Task} data - data for task update
  * @returns {Promise<Task>} task
  */
-const update = (data) => {
+const update = (data: Task) => {
   const task = new Task(data);
   return tasksRepo.update(task);
 };
@@ -54,7 +54,7 @@ const update = (data) => {
  * @param {string} id - id of the task
  * @returns {Promise}
  */
-const remove = (id) => tasksRepo.remove(id);
+const remove = (id: string) => tasksRepo.remove(id);
 
 /**
  * Removes all tasks by boardId
@@ -62,7 +62,7 @@ const remove = (id) => tasksRepo.remove(id);
  * @param {string} id - boardId
  * @returns {Promise}
  */
-const removeAllByBoardId = (id) => tasksRepo.removeAllByBoardId(id);
+const removeAllByBoardId = (id: string) => tasksRepo.removeAllByBoardId(id);
 
 /**
  * Unassign all tasks by user id
@@ -70,7 +70,7 @@ const removeAllByBoardId = (id) => tasksRepo.removeAllByBoardId(id);
  * @param {string} userId - userId
  * @returns {Promise}
  */
-const unassignAllTasksByUserId = async (userId) => {
+const unassignAllTasksByUserId = async (userId: string) => {
   const tasksByUserId = await getAllByUserId(userId);
 
   return Promise.all(

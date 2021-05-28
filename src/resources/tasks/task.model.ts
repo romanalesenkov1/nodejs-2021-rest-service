@@ -6,6 +6,20 @@ import { v4 as uuid } from 'uuid';
 
 /** Class representing a task. */
 class Task {
+  id?: string;
+
+  title?: string;
+
+  order?: number;
+
+  description?: string;
+
+  userId?: string | null;
+
+  boardId?: string | null;
+
+  columnId?: string | null;
+
   /**
    * Create a task.
    * @constructor
@@ -26,7 +40,7 @@ class Task {
     userId = null,
     boardId = null,
     columnId = null,
-  } = {}) {
+  }: Task = {}) {
     this.id = id;
     this.title = title;
     this.order = order;

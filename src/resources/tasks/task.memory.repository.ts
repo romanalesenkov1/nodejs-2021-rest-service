@@ -1,11 +1,13 @@
-let tasks = [];
+import Task from './task.model';
+
+let tasks: Task[] = [];
 
 /**
  * Returns the all tasks by board id
  * @memberof task#
  * @returns {Promise<Task[]>}
  */
-const getAllByBoardId = async (boardId) =>
+const getAllByBoardId = async (boardId: string) =>
   tasks.filter((task) => task.boardId === boardId);
 
 /**
@@ -13,7 +15,7 @@ const getAllByBoardId = async (boardId) =>
  * @memberof task#
  * @returns {Promise<Task[]>}
  */
-const getAllByUserId = async (userId) =>
+const getAllByUserId = async (userId: string) =>
   tasks.filter((task) => task.userId === userId);
 
 /**
@@ -22,7 +24,7 @@ const getAllByUserId = async (userId) =>
  * @param {Task} task
  * @returns {Promise<Task>}
  */
-const create = async (task) => {
+const create = async (task: Task) => {
   tasks = [...tasks, task];
   return task;
 };
@@ -30,11 +32,11 @@ const create = async (task) => {
 /**
  * Returns task by board id and by task id
  * @memberof task#
- * @param {string} boardId
+ * @param {string} _boardId
  * @param {string} taskId
  * @returns {Promise<Task>}
  */
-const getByBoardIdByTaskId = async (boardId, taskId) =>
+const getByBoardIdByTaskId = async (_boardId: string, taskId: string) =>
   tasks.find((task) => task.id === taskId);
 
 /**
@@ -43,7 +45,7 @@ const getByBoardIdByTaskId = async (boardId, taskId) =>
  * @param {Task} taskToUpdate
  * @returns {Promise<Task>}
  */
-const update = async (taskToUpdate) => {
+const update = async (taskToUpdate: Task) => {
   const filteredTasks = tasks.filter((task) => task.id !== taskToUpdate.id);
   tasks = [...filteredTasks, taskToUpdate];
   return taskToUpdate;
@@ -55,7 +57,7 @@ const update = async (taskToUpdate) => {
  * @param {string} id
  * @returns {Promise<Task>}
  */
-const remove = async (id) => {
+const remove = async (id: string) => {
   const filteredTasks = tasks.filter((task) => task.id !== id);
   const taskToDelete = tasks.find((task) => task.id === id);
   tasks = [...filteredTasks];
@@ -68,7 +70,7 @@ const remove = async (id) => {
  * @param {string} boardId
  * @returns {Promise}
  */
-const removeAllByBoardId = async (boardId) => {
+const removeAllByBoardId = async (boardId: string) => {
   const filteredTasks = tasks.filter((task) => task.boardId !== boardId);
   tasks = [...filteredTasks];
   return [];

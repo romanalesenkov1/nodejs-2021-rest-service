@@ -49,8 +49,8 @@ const update = async (boardToUpdate: Board) => {
  * @returns {{}}
  */
 const remove = async (id: string) => {
-  const filteredUsers = boards.filter((board) => board.id !== id);
-  boards = [...filteredUsers];
+  const filteredBoards = boards.filter((board) => board.id !== id);
+  boards = [...filteredBoards];
   return {};
 };
 

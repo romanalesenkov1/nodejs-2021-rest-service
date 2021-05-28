@@ -9,7 +9,6 @@
   "description": "REST service starter for RS School",
   "main": "build/server.js",
   "scripts": {
-    "dev": "",
     "build": "tsc --project .",
     "start": "nodemon --es-module-specifier-resolution=node build/server.js",
     "doc": "jsdoc -r src",
