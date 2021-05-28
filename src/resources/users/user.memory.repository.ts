@@ -1,4 +1,6 @@
-let users = [];
+import User from './user.model';
+
+let users: User[] = [];
 
 /**
  * Returns the all users
@@ -13,7 +15,7 @@ const getAll = async () => users;
  * @param {User} user
  * @returns {Promise<User>}
  */
-const create = async (user) => {
+const create = async (user: User) => {
   users = [...users, user];
   return user;
 };
@@ -24,7 +26,7 @@ const create = async (user) => {
  * @param {string} id
  * @returns {Promise<User>}
  */
-const getById = async (id) => users.find((user) => user.id === id);
+const getById = async (id: string) => users.find((user) => user.id === id);
 
 /**
  * Updates user
@@ -32,7 +34,7 @@ const getById = async (id) => users.find((user) => user.id === id);
  * @param {User} userToUpdate
  * @returns {Promise<User>}
  */
-const update = async (userToUpdate) => {
+const update = async (userToUpdate: User) => {
   const filteredUsers = users.filter((user) => user.id !== userToUpdate.id);
   users = [...filteredUsers, userToUpdate];
   return userToUpdate;
@@ -44,7 +46,7 @@ const update = async (userToUpdate) => {
  * @param {string} id
  * @returns {Promise<User>}
  */
-const remove = async (id) => {
+const remove = async (id: string) => {
   const filteredUsers = users.filter((user) => user.id !== id);
   const userToDelete = users.find((user) => user.id === id);
   users = [...filteredUsers];

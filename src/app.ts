@@ -3,9 +3,9 @@ import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
 import { URL } from 'url';
-import userRouter from './resources/users/user.router.js';
-import boardRouter from './resources/boards/board.router.js';
-import taskRouter from './resources/tasks/task.router.js';
+import userRouter from './resources/users/user.router';
+import boardRouter from './resources/boards/board.router';
+import taskRouter from './resources/tasks/task.router';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 

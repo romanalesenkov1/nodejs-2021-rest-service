@@ -1,6 +1,6 @@
-import usersRepo from './user.memory.repository.js';
-import User from './user.model.js';
-import tasksService from '../tasks/task.service.js';
+import usersRepo from './user.memory.repository';
+import User from './user.model';
+import tasksService from '../tasks/task.service';
 
 /**
  * Returns all users
@@ -15,7 +15,7 @@ const getAll = () => usersRepo.getAll();
  * @param {User} data - data for user creation
  * @returns {Promise<User>} user
  */
-const create = (data) => {
+const create = (data: User) => {
   const createdUser = new User({ ...data, id: undefined });
   return usersRepo.create(createdUser);
 };
@@ -26,7 +26,7 @@ const create = (data) => {
  * @param {string} id - user id
  * @returns {Promise<User>} user
  */
-const getById = (id) => usersRepo.getById(id);
+const getById = (id: string) => usersRepo.getById(id);
 
 /**
  * Updates a user
@@ -35,7 +35,7 @@ const getById = (id) => usersRepo.getById(id);
  * @param {User} data - data for user update
  * @returns {Promise<User>} user
  */
-const update = (id, data) => {
+const update = (id: string, data: User) => {
   const user = new User({ ...data, id });
   return usersRepo.update(user);
 };
@@ -46,7 +46,7 @@ const update = (id, data) => {
  * @param {string} id - id of the user
  * @returns {Promise}
  */
-const remove = async (id) => {
+const remove = async (id: string) => {
   await usersRepo.remove(id);
   return tasksService.unassignAllTasksByUserId(id);
 };

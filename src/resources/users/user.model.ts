@@ -6,6 +6,14 @@ import { v4 as uuid } from 'uuid';
 
 /** Class representing a user. */
 class User {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   /**
    * Create a user.
    * @constructor
@@ -42,7 +50,7 @@ class User {
    * @param {User} user - The {@link User}
    * @return {ResponseUser} responseUser
    */
-  static toResponse(user) {
+  static toResponse(user: User) {
     const { id, name, login } = user;
     return { id, name, login };
   }

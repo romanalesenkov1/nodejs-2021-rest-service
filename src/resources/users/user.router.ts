@@ -1,10 +1,10 @@
 import express from 'express';
-import User from './user.model.js';
-import usersService from './user.service.js';
+import User from './user.model';
+import usersService from './user.service';
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
+router.route('/').get(async (_req, res) => {
   const users = await usersService.getAll();
   res.json(users.map(User.toResponse));
 });
