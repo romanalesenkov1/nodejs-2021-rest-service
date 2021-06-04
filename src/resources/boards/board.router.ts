@@ -1,5 +1,6 @@
 import express from 'express';
 import boardsService from './board.service';
+import HttpException from "../../exceptions/HttpException";
 
 const router = express.Router();
 
@@ -13,28 +14,28 @@ router.route('/').post(async (req, res) => {
   res.status(201).json(board);
 });
 
-router.route('/:boardId').get(async (req, res) => {
+router.route('/:boardId').get(async (req, res, next) => {
   const board = await boardsService.getById(req.params.boardId);
   if (!board) {
-    res.status(404).send('Board not found');
+    next(new HttpException(404, 'Board not found'));
   } else {
     res.json(board);
   }
 });
 
-router.route('/:boardId').put(async (req, res) => {
+router.route('/:boardId').put(async (req, res, next) => {
   const board = await boardsService.update(req.params.boardId, req.body);
   if (!board) {
-    res.status(404).send('Board not found');
+    next(new HttpException(404, 'Board not found'));
   } else {
     res.json(board);
   }
 });
 
-router.route('/:boardId').delete(async (req, res) => {
+router.route('/:boardId').delete(async (req, res, next) => {
   const board = await boardsService.remove(req.params.boardId);
   if (!board) {
-    res.status(404).send('Board not found');
+    next(new HttpException(404, 'Board not found'));
   } else {
     res.status(204).send();
   }

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
@@ -6,6 +6,7 @@ import { URL } from 'url';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import HttpException from './exceptions/HttpException';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -27,5 +28,13 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
+
+app.use((error: HttpException, _req: Request, res: Response, next: NextFunction) => {
+  if (_req.xhr) {
+    res.status(error.status || 500).send(error.message);
+  } else {
+    next(error);
+  }
+})
 
 export default app;
