@@ -7,6 +7,7 @@ import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import HttpException from './exceptions/HttpException';
+import {logger} from "./middleware/logger";
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -25,16 +26,35 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use(logger.requestsLogger);
+
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 
+app.use(logger.errorsLogger);
+
 app.use((error: HttpException, _req: Request, res: Response, next: NextFunction) => {
-  if (_req.xhr) {
-    res.status(error.status || 500).send(error.message);
-  } else {
-    next(error);
-  }
+  res.status(error.status || 500).send(error.message);
+  next()
 })
+
+
+process.on('uncaughtException', logger.uncaughtExceptionsLogger);
+process.on('unhandledRejection', logger.unhandledRejectionsLogger);
+
+/*
+// Test uncaughtException
+setTimeout(()=>{
+  throw new Error ('ooooops')
+}, 2000);
+*/
+
+/*
+ // Test unhandledRejection
+setTimeout(() => {
+  Promise.reject(new Error('Oops!'))
+}, 1500);
+*/
 
 export default app;

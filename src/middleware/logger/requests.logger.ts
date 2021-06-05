@@ -6,14 +6,6 @@ export const requestsLogger = expressWinston.logger({
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-            filename: 'error.log',
-            level: 'error',
-            format: winston.format.combine(
-                winston.format.uncolorize(),
-                winston.format.json()
-            )
-        }),
-        new winston.transports.File({
             filename: 'info.log',
             level: 'info',
             format: winston.format.combine(
@@ -22,10 +14,6 @@ export const requestsLogger = expressWinston.logger({
             )
         }),
     ],
-    format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.json()
-    ),
     meta: false, // optional: control whether you want to log the meta data about the request (default to true)
     msg: "HTTP {{req.method}} {{req.url}} | query parameters: {{JSON.stringify(req.query)}} | body: {{JSON.stringify(req.body)}} | status code: {{res.statusCode}}", // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
     expressFormat: false, // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
