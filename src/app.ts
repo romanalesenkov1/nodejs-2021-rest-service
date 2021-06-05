@@ -1,20 +1,21 @@
-import express, {NextFunction, Request, Response} from 'express';
+import express, {NextFunction, Request, RequestHandler, Response} from 'express';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
-import { URL } from 'url';
+import { fileURLToPath } from 'url';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import HttpException from './exceptions/HttpException';
 import {logger} from "./middleware/logger";
 
-const __dirname = new URL('.', import.meta.url).pathname;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
-app.use(express.json());
+app.use(express.json() as RequestHandler);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
