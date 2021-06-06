@@ -1,11 +1,10 @@
-import {requestsLogger} from './requests.logger';
-import {errorsLogger} from './errors.logger';
 import {unhandledRejectionsLogger} from './unhandledRejections.logger';
 import {uncaughtExceptionsLogger} from './uncaughtExceptions.logger'
+import {createLogger} from "./logger.factory";
 
 export const logger = {
-   requestsLogger,
-   errorsLogger,
+   requestsLogger: createLogger('info'),
+   errorsLogger: createLogger('error'),
    uncaughtExceptionsLogger,
    unhandledRejectionsLogger,
 }
