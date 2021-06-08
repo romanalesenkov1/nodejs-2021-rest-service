@@ -5,12 +5,11 @@
     "type": "git",
     "url": ""
   },
-  "type": "module",
   "description": "REST service starter for RS School",
-  "main": "build/server.js",
+  "main": "src/server.js",
   "scripts": {
-    "build": "tsc --project .",
-    "start": "tsc --project . && nodemon --es-module-specifier-resolution=node build/server.js",
+    "build": "tsc",
+    "start": "nodemon",
     "doc": "jsdoc -r src",
     "lint": "eslint --ext .ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
