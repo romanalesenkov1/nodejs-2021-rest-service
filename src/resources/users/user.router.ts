@@ -1,6 +1,7 @@
 import express from 'express';
 import User from './user.model';
 import usersService from './user.service';
+import HttpException from '../../exceptions/HttpException';
 
 const router = express.Router();
 
@@ -14,28 +15,29 @@ router.route('/').post(async (req, res) => {
   res.status(201).json(User.toResponse(user));
 });
 
-router.route('/:userId').get(async (req, res) => {
+router.route('/:userId').get(async (req, res, next) => {
   const user = await usersService.getById(req.params.userId);
+
   if (!user) {
-    res.status(404).send('User not found');
+    next(new HttpException(404, 'User not found'));
   } else {
     res.json(User.toResponse(user));
   }
 });
 
-router.route('/:userId').put(async (req, res) => {
+router.route('/:userId').put(async (req, res, next) => {
   const user = await usersService.update(req.params.userId, req.body);
   if (!user) {
-    res.status(404).send('User not found');
+    next(new HttpException(404, 'User not found'));
   } else {
     res.json(User.toResponse(user));
   }
 });
 
-router.route('/:userId').delete(async (req, res) => {
+router.route('/:userId').delete(async (req, res, next) => {
   const user = await usersService.remove(req.params.userId);
   if (!user) {
-    res.status(404).send('User not found');
+    next(new HttpException(404, 'User not found'));
   } else {
     res.status(204).send();
   }

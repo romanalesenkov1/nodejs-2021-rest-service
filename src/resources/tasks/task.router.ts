@@ -1,5 +1,6 @@
 import express, { Request } from 'express';
 import tasksService from './task.service';
+import HttpException from "../../exceptions/HttpException";
 
 const router = express.Router({ mergeParams: true });
 
@@ -21,43 +22,43 @@ interface IPutByBoardByTaskIdIdRequest extends Request {
   taskId?: string;
 }
 
-router.route('/').get(async (req: IGetAllByBoardIdRequest, res) => {
+router.route('/').get(async (req: IGetAllByBoardIdRequest, res, next) => {
   if (req.params['boardId']) {
     const tasks = await tasksService.getAllByBoardId(req.params['boardId']);
     res.json(tasks);
   } else {
-    res.status(400).send('Bad Request');
+    next(new HttpException(400, 'Bad Request'));
   }
 });
 
-router.route('/').post(async (req: IPostByBoardIdRequest, res) => {
+router.route('/').post(async (req: IPostByBoardIdRequest, res, next) => {
   if (req.params['boardId']) {
     const task = await tasksService.create(req.body, req.params['boardId']);
     res.status(201).json(task);
   } else {
-    res.status(400).send('Bad Request');
+    next(new HttpException(400, 'Bad Request'));
   }
 });
 
 router
   .route('/:taskId')
-  .get(async (req: IGetAllByBoardByTaskIdIdRequest, res) => {
+  .get(async (req: IGetAllByBoardByTaskIdIdRequest, res, next) => {
     if (req.params['boardId'] && req.params['taskId']) {
       const task = await tasksService.getByBoardIdByTaskId(
         req.params['boardId'],
         req.params['taskId']
       );
       if (!task) {
-        res.status(404).send('Task not found');
+        next(new HttpException(404, 'Task not found'));
       } else {
         res.json(task);
       }
     } else {
-      res.status(400).send('Bad Request');
+      next(new HttpException(400, 'Bad Request'));
     }
   });
 
-router.route('/:taskId').put(async (req: IPutByBoardByTaskIdIdRequest, res) => {
+router.route('/:taskId').put(async (req: IPutByBoardByTaskIdIdRequest, res, next) => {
   const task = await tasksService.update({
     ...req.body,
     boardId: req.params['boardId'],
@@ -65,16 +66,16 @@ router.route('/:taskId').put(async (req: IPutByBoardByTaskIdIdRequest, res) => {
   });
 
   if (!task) {
-    res.status(404).send('Task not found');
+    next(new HttpException(404, 'Task not found'));
   } else {
     res.json(task);
   }
 });
 
-router.route('/:taskId').delete(async (req, res) => {
+router.route('/:taskId').delete(async (req, res, next) => {
   const task = await tasksService.remove(req.params.taskId);
   if (!task) {
-    res.status(404).send('Task not found');
+    next(new HttpException(404, 'Task not found'));
   } else {
     res.status(204).send();
   }
