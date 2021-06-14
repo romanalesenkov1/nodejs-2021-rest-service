@@ -15,7 +15,7 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(express.json() as RequestHandler);
 
-db.sync();
+db.init();
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
