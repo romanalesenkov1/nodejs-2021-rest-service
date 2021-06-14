@@ -17,7 +17,7 @@ const init = () => {
             "src/resources/**/*.model.ts"
         ],
     })
-        .then(()=>console.log('Connected to DB'))
+       .then(() => console.log('Connected to DB'))
         .catch((e)=>console.error(e, 'Failed to connect to DB'))
 }
 

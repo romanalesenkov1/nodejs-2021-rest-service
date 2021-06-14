@@ -11,13 +11,13 @@ class User {
   @PrimaryColumn()
   id?: string;
 
-  @Column({ name: 'name' })
+  @Column()
   name?: string;
 
-  @Column({ name: 'login' })
+  @Column()
   login?: string;
 
-  @Column({ name: 'password' })
+  @Column()
   password?: string;
 
   /**
