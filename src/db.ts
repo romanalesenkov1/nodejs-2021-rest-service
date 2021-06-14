@@ -11,7 +11,11 @@ const init = () => {
         username: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
         database: POSTGRES_DB,
-        name: 'postgres'
+        synchronize: true,
+        logging: true,
+        entities: [
+            "src/resources/**/*.model.ts"
+        ],
     })
         .then(()=>console.log('Connected to DB'))
         .catch((e)=>console.error(e, 'Failed to connect to DB'))

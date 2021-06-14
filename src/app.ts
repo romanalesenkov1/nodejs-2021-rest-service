@@ -7,7 +7,7 @@ import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import HttpException from './exceptions/HttpException';
 import {logger} from "./middleware/logger";
-
+import "reflect-metadata";
 import db from './db'
 
 const app = express();
