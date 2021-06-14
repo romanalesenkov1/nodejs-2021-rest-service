@@ -1,4 +1,4 @@
-import {getRepository} from "typeorm";
+import { getRepository } from 'typeorm';
 import User from './user.model';
 
 /**
@@ -8,8 +8,8 @@ import User from './user.model';
  */
 const getAll = async () => {
   const userRepository = getRepository(User);
-  return userRepository.find()
-}
+  return userRepository.find();
+};
 
 /**
  * Creates user
@@ -33,7 +33,7 @@ const getById = async (id: string) => {
   const user = await userRepository.findOne({ id });
   if (!user) return null;
   return user;
-}
+};
 
 /**
  * Updates user
@@ -47,7 +47,7 @@ const update = async (id: string, userToUpdate: User) => {
 
   const user = await userRepository.findOne({ id });
 
-  return userRepository.save({...user, ...userToUpdate})
+  return userRepository.save({ ...user, ...userToUpdate });
 };
 
 /**
@@ -58,7 +58,7 @@ const update = async (id: string, userToUpdate: User) => {
  */
 const remove = async (id: string) => {
   const userRepository = getRepository(User);
-  return userRepository.delete({id});
+  return userRepository.delete({ id });
 };
 
 export default { getAll, create, getById, update, remove };

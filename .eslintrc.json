@@ -31,7 +31,8 @@
     "plugin:node/recommended",
     "plugin:@typescript-eslint/recommended",
     "airbnb-base",
-    "prettier"
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "import/extensions": "off",
