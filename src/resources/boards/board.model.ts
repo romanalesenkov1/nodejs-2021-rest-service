@@ -15,7 +15,9 @@ class Board {
   @ORMColumn()
   title?: string;
 
-  @OneToMany(() => Column, (column) => column.board, { cascade: true })
+  @OneToMany(() => Column, (column) => column.board, {
+    onDelete: 'CASCADE',
+  })
   columns?: Column[];
 
   /**
