@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import { ConnectionOptions } from 'typeorm';
 import {
   POSTGRES_DB,
   POSTGRES_HOST,
@@ -7,23 +8,21 @@ import {
   POSTGRES_PORT,
   POSTGRES_USER,
 } from './config';
-import { ConnectionOptions } from 'typeorm';
 
 dotenv.config({
   path: path.join(__dirname, '../../.env'),
 });
 
-export const config = {
+export default {
   type: 'postgres',
   host: POSTGRES_HOST,
   port: parseInt(POSTGRES_PORT!, 10),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
-  autoReconnect: true,
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 1000,
-  synchronize: true,
+  // synchronize: true,
   logging: true,
   entities: ['src/resources/**/*.model.ts'],
+  migrations: ['src/migrations/**/*.ts'],
+  migrationsRun: true,
 } as ConnectionOptions;
