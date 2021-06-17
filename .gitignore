@@ -1,6 +1,5 @@
 node_modules
 .idea
-.env
 build
 error.log
 info.log
