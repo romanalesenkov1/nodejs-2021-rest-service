@@ -1,23 +1,32 @@
 import { v4 as uuid } from 'uuid';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 /**
  * @namespace task
  */
 
 /** Class representing a task. */
+@Entity('tasks')
 class Task {
+  @PrimaryColumn()
   id?: string;
 
+  @Column()
   title?: string;
 
+  @Column()
   order?: number;
 
+  @Column()
   description?: string;
 
+  @Column({ type: 'varchar', nullable: true })
   userId?: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
   boardId?: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
   columnId?: string | null;
 
   /**

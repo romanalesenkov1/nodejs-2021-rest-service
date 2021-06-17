@@ -1,22 +1,25 @@
+import { getRepository } from 'typeorm';
 import Task from './task.model';
-
-let tasks: Task[] = [];
 
 /**
  * Returns the all tasks by board id
  * @memberof task#
  * @returns {Promise<Task[]>}
  */
-const getAllByBoardId = async (boardId: string) =>
-  tasks.filter((task) => task.boardId === boardId);
+const getAllByBoardId = async (boardId: string) => {
+  const taskRepository = getRepository(Task);
+  return taskRepository.find({ where: { boardId } });
+};
 
 /**
  * Returns the all tasks by user id
  * @memberof task#
  * @returns {Promise<Task[]>}
  */
-const getAllByUserId = async (userId: string) =>
-  tasks.filter((task) => task.userId === userId);
+const getAllByUserId = async (userId: string) => {
+  const taskRepository = getRepository(Task);
+  return taskRepository.find({ where: { userId } });
+};
 
 /**
  * Creates task
@@ -25,8 +28,8 @@ const getAllByUserId = async (userId: string) =>
  * @returns {Promise<Task>}
  */
 const create = async (task: Task) => {
-  tasks = [...tasks, task];
-  return task;
+  const taskRepository = getRepository(Task);
+  return taskRepository.save(task);
 };
 
 /**
@@ -36,19 +39,22 @@ const create = async (task: Task) => {
  * @param {string} taskId
  * @returns {Promise<Task>}
  */
-const getByBoardIdByTaskId = async (_boardId: string, taskId: string) =>
-  tasks.find((task) => task.id === taskId);
+const getByBoardIdByTaskId = async (_boardId: string, taskId: string) => {
+  const taskRepository = getRepository(Task);
+  return taskRepository.findOne({ where: { id: taskId } });
+};
 
 /**
  * Updates task
  * @memberof task#
+ * @param {string} id
  * @param {Task} taskToUpdate
  * @returns {Promise<Task>}
  */
-const update = async (taskToUpdate: Task) => {
-  const filteredTasks = tasks.filter((task) => task.id !== taskToUpdate.id);
-  tasks = [...filteredTasks, taskToUpdate];
-  return taskToUpdate;
+const update = async (id: string, taskToUpdate: Task) => {
+  const taskRepository = getRepository(Task);
+  const task = await taskRepository.findOne({ id });
+  return taskRepository.save({ ...task, ...taskToUpdate });
 };
 
 /**
@@ -58,10 +64,8 @@ const update = async (taskToUpdate: Task) => {
  * @returns {Promise<Task>}
  */
 const remove = async (id: string) => {
-  const filteredTasks = tasks.filter((task) => task.id !== id);
-  const taskToDelete = tasks.find((task) => task.id === id);
-  tasks = [...filteredTasks];
-  return taskToDelete;
+  const taskRepository = getRepository(Task);
+  return taskRepository.delete({ id });
 };
 
 /**
@@ -71,9 +75,14 @@ const remove = async (id: string) => {
  * @returns {Promise}
  */
 const removeAllByBoardId = async (boardId: string) => {
-  const filteredTasks = tasks.filter((task) => task.boardId !== boardId);
-  tasks = [...filteredTasks];
-  return [];
+  const taskRepository = getRepository(Task);
+  const tasksToDelete = await taskRepository.find({ where: { boardId } });
+
+  const promises = tasksToDelete.map(async (task) => {
+    return await taskRepository.delete({ id: task.id! });
+  });
+
+  return await Promise.all(promises);
 };
 
 export default {

@@ -1,17 +1,23 @@
 import { v4 as uuid } from 'uuid';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 /**
  * @namespace user
  */
 
 /** Class representing a user. */
+@Entity('users')
 class User {
+  @PrimaryColumn()
   id?: string;
 
+  @Column()
   name?: string;
 
+  @Column()
   login?: string;
 
+  @Column()
   password?: string;
 
   /**

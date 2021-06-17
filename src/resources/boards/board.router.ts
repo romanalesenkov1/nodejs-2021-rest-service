@@ -1,6 +1,6 @@
 import express from 'express';
 import boardsService from './board.service';
-import HttpException from "../../exceptions/HttpException";
+import HttpException from '../../exceptions/HttpException';
 
 const router = express.Router();
 

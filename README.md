@@ -19,6 +19,9 @@ npm install
 
 ## Running application
 
+Prerequisites: 
+- Postgres should be running. 
+- Correct settings are set in `.env` file: POSTGRES_PORT, POSTGRES_HOST, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB (it is better to set the name of empty database).
 ```
 npm start
 ```

@@ -1,6 +1,6 @@
 import express, { Request } from 'express';
 import tasksService from './task.service';
-import HttpException from "../../exceptions/HttpException";
+import HttpException from '../../exceptions/HttpException';
 
 const router = express.Router({ mergeParams: true });
 
@@ -58,19 +58,21 @@ router
     }
   });
 
-router.route('/:taskId').put(async (req: IPutByBoardByTaskIdIdRequest, res, next) => {
-  const task = await tasksService.update({
-    ...req.body,
-    boardId: req.params['boardId'],
-    taskId: req.params['taskId'],
-  });
+router
+  .route('/:taskId')
+  .put(async (req: IPutByBoardByTaskIdIdRequest, res, next) => {
+    const task = await tasksService.update(req.body.id, {
+      ...req.body,
+      boardId: req.params['boardId'],
+      taskId: req.params['taskId'],
+    });
 
-  if (!task) {
-    next(new HttpException(404, 'Task not found'));
-  } else {
-    res.json(task);
-  }
-});
+    if (!task) {
+      next(new HttpException(404, 'Task not found'));
+    } else {
+      res.json(task);
+    }
+  });
 
 router.route('/:taskId').delete(async (req, res, next) => {
   const task = await tasksService.remove(req.params.taskId);

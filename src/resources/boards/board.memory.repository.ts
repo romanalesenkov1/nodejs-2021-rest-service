@@ -1,13 +1,15 @@
+import { getRepository } from 'typeorm';
 import Board from './board.model';
-
-let boards: Board[] = [];
 
 /**
  * Returns the all users
  * @memberof board#
  * @returns {Promise<Board[]>}
  */
-const getAll = async () => boards;
+const getAll = async () => {
+  const boardRepository = getRepository(Board);
+  return boardRepository.find({ relations: ['columns'] });
+};
 
 /**
  * Creates board
@@ -16,8 +18,8 @@ const getAll = async () => boards;
  * @returns {Promise<Board>}
  */
 const create = async (board: Board) => {
-  boards = [...boards, board];
-  return board;
+  const boardRepository = getRepository(Board);
+  return boardRepository.save(board);
 };
 
 /**
@@ -26,20 +28,29 @@ const create = async (board: Board) => {
  * @param {string} id
  * @returns {Promise<Board>}
  */
-const getById = async (id: string) => boards.find((board) => board.id === id);
+const getById = async (id: string) => {
+  const boardRepository = getRepository(Board);
+  const board = await boardRepository.findOne({
+    where: { id },
+    relations: ['columns'],
+  });
+  if (!board) return null;
+  return board;
+};
 
 /**
  * Updates board
  * @memberof board#
+ * @param {string} id
  * @param {Board} boardToUpdate
  * @returns {Promise<Board>}
  */
-const update = async (boardToUpdate: Board) => {
-  const filteredBoards = boards.filter(
-    (board) => board.id !== boardToUpdate.id
-  );
-  boards = [...filteredBoards, boardToUpdate];
-  return boardToUpdate;
+const update = async (id: string, boardToUpdate: Board) => {
+  const boardRepository = getRepository(Board);
+
+  const board = await boardRepository.findOne({ id });
+
+  return boardRepository.save({ ...board, ...boardToUpdate });
 };
 
 /**
@@ -48,10 +59,10 @@ const update = async (boardToUpdate: Board) => {
  * @param {string} id
  * @returns {{}}
  */
+
 const remove = async (id: string) => {
-  const filteredBoards = boards.filter((board) => board.id !== id);
-  boards = [...filteredBoards];
-  return {};
+  const boardRepository = getRepository(Board);
+  return boardRepository.delete({ id });
 };
 
 export default { getAll, create, getById, update, remove };

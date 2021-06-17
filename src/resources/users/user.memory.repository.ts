@@ -1,13 +1,15 @@
+import { getRepository } from 'typeorm';
 import User from './user.model';
-
-let users: User[] = [];
 
 /**
  * Returns the all users
  * @memberof user#
  * @returns {Promise<User[]>}
  */
-const getAll = async () => users;
+const getAll = async () => {
+  const userRepository = getRepository(User);
+  return userRepository.find();
+};
 
 /**
  * Creates user
@@ -16,8 +18,8 @@ const getAll = async () => users;
  * @returns {Promise<User>}
  */
 const create = async (user: User) => {
-  users = [...users, user];
-  return user;
+  const userRepository = getRepository(User);
+  return userRepository.save(user);
 };
 
 /**
@@ -26,18 +28,26 @@ const create = async (user: User) => {
  * @param {string} id
  * @returns {Promise<User>}
  */
-const getById = async (id: string) => users.find((user) => user.id === id);
+const getById = async (id: string) => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne({ id });
+  if (!user) return null;
+  return user;
+};
 
 /**
  * Updates user
  * @memberof user#
+ * @param {string} id
  * @param {User} userToUpdate
  * @returns {Promise<User>}
  */
-const update = async (userToUpdate: User) => {
-  const filteredUsers = users.filter((user) => user.id !== userToUpdate.id);
-  users = [...filteredUsers, userToUpdate];
-  return userToUpdate;
+const update = async (id: string, userToUpdate: User) => {
+  const userRepository = getRepository(User);
+
+  const user = await userRepository.findOne({ id });
+
+  return userRepository.save({ ...user, ...userToUpdate });
 };
 
 /**
@@ -47,10 +57,8 @@ const update = async (userToUpdate: User) => {
  * @returns {Promise<User>}
  */
 const remove = async (id: string) => {
-  const filteredUsers = users.filter((user) => user.id !== id);
-  const userToDelete = users.find((user) => user.id === id);
-  users = [...filteredUsers];
-  return userToDelete;
+  const userRepository = getRepository(User);
+  return userRepository.delete({ id });
 };
 
 export default { getAll, create, getById, update, remove };

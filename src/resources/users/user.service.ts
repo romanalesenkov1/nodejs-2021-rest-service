@@ -37,7 +37,7 @@ const getById = (id: string) => usersRepo.getById(id);
  */
 const update = (id: string, data: User) => {
   const user = new User({ ...data, id });
-  return usersRepo.update(user);
+  return usersRepo.update(id, user);
 };
 
 /**

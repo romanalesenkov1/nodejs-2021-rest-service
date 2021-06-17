@@ -31,9 +31,12 @@
     "plugin:node/recommended",
     "plugin:@typescript-eslint/recommended",
     "airbnb-base",
-    "prettier"
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "rules": {
+    "class-methods-use-this": "off",
+    "no-return-await": "off",
     "import/extensions": "off",
     "linebreak-style": "off",
     "node/no-unsupported-features/es-syntax": "off",
