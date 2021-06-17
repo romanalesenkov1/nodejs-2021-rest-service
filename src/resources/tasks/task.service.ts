@@ -40,12 +40,13 @@ const getByBoardIdByTaskId = (boardId: string, id: string) =>
 /**
  * Updates a task
  * @memberof task#
+ * @param {string} id - task id
  * @param {Task} data - data for task update
  * @returns {Promise<Task>} task
  */
-const update = (data: Task) => {
+const update = (id: string, data: Task) => {
   const task = new Task(data);
-  return tasksRepo.update(task);
+  return tasksRepo.update(id, task);
 };
 
 /**
@@ -73,11 +74,11 @@ const removeAllByBoardId = (id: string) => tasksRepo.removeAllByBoardId(id);
 const unassignAllTasksByUserId = async (userId: string) => {
   const tasksByUserId = await getAllByUserId(userId);
 
-  return Promise.all(
-    tasksByUserId.map(async (task) => {
-      await update({ ...task, userId: null });
-    })
-  );
+  const promises = tasksByUserId.map(async (task) => {
+    await update(task.id!, { ...task, userId: null });
+  });
+
+  return Promise.all(promises);
 };
 
 export default {

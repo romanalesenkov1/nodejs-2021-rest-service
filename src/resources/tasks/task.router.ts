@@ -61,7 +61,7 @@ router
 router
   .route('/:taskId')
   .put(async (req: IPutByBoardByTaskIdIdRequest, res, next) => {
-    const task = await tasksService.update({
+    const task = await tasksService.update(req.body.id, {
       ...req.body,
       boardId: req.params['boardId'],
       taskId: req.params['taskId'],
