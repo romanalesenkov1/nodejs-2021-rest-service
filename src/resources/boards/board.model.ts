@@ -16,7 +16,7 @@ class Board {
   title?: string;
 
   @OneToMany(() => Column, (column) => column.board, {
-    onDelete: 'CASCADE',
+    cascade: true,
   })
   columns?: Column[];
 

@@ -42,7 +42,8 @@ const getById = (id: string) => boardsRepo.getById(id);
  * @returns {Promise<Board>} user
  */
 const update = (id: string, data: Board) => {
-  const board = new Board({ ...data, id });
+  const columns = data.columns?.map((column) => new Column(column));
+  const board = new Board({ ...data, columns, id });
   return boardsRepo.update(id, board);
 };
 

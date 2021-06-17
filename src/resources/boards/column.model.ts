@@ -13,7 +13,9 @@ export default class Column {
   @ORMColumn()
   order: number;
 
-  @ManyToOne(() => Board, (board) => board.columns)
+  @ManyToOne(() => Board, (board) => board.columns, {
+    onDelete: 'CASCADE',
+  })
   board?: Board;
 
   constructor({ id = uuidv4(), title = 'Column', order = 0 } = {}) {
