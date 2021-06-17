@@ -1,6 +1,7 @@
 import boardsRepo from './board.memory.repository';
 import Board from './board.model';
 import tasksService from '../tasks/task.service';
+import Column from './column.model';
 
 /**
  * Returns all boards
@@ -16,7 +17,12 @@ const getAll = () => boardsRepo.getAll();
  * @returns {Promise<Board>} board
  */
 const create = (data: Board) => {
-  const createdBoard = new Board({ ...data, id: undefined });
+  const createdColumns = data.columns?.map((column) => new Column(column));
+  const createdBoard = new Board({
+    ...data,
+    columns: createdColumns,
+    id: undefined,
+  });
   return boardsRepo.create(createdBoard);
 };
 
@@ -37,7 +43,7 @@ const getById = (id: string) => boardsRepo.getById(id);
  */
 const update = (id: string, data: Board) => {
   const board = new Board({ ...data, id });
-  return boardsRepo.update(board);
+  return boardsRepo.update(id, board);
 };
 
 /**
