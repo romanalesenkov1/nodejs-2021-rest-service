@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 import { JWT_SECRET_KEY } from '../common/config';
 import loginService from './login.service';
@@ -32,7 +32,9 @@ router.route('/login').post(async (req, res) => {
       }
     });
   } else {
-    res.status(StatusCodes.NOT_FOUND).send({ error: 'User not found.' });
+    res
+      .status(StatusCodes.FORBIDDEN)
+      .send({ error: getReasonPhrase(StatusCodes.FORBIDDEN) });
   }
 });
 

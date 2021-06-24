@@ -34,11 +34,11 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-app.use(validateSession);
+app.use('/', loginRouter);
 
+app.use(validateSession);
 app.use(logger.requestsLogger);
 
-app.use('/', loginRouter);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
