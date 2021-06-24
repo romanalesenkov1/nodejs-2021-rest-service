@@ -9,7 +9,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -25,5 +25,8 @@
   ],
   "include": [
     "./src/**/*.ts"
+  ],
+  "files": [
+    "./typings/express/index.d.ts"
   ]
 }

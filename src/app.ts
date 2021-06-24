@@ -10,9 +10,11 @@ import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import loginRouter from './auth/login.router';
 import HttpException from './exceptions/HttpException';
 import { logger } from './middleware/logger';
 import 'reflect-metadata';
+import validateSession from './middleware/validate-session';
 import db from './db';
 
 const app = express();
@@ -32,6 +34,9 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/', loginRouter);
+
+app.use(validateSession);
 app.use(logger.requestsLogger);
 
 app.use('/users', userRouter);

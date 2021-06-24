@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
+import bcrypt from 'bcryptjs';
 
 /**
  * @namespace user
@@ -38,7 +39,7 @@ class User {
     this.id = id;
     this.name = name;
     this.login = login;
-    this.password = password;
+    this.password = bcrypt.hashSync(password);
   }
 
   /**

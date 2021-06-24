@@ -2,7 +2,7 @@
   "ignore": ["node_modules"],
   "watch": ["src/"],
   "ext": "ts",
-  "exec": "ts-node src/server.ts",
+  "exec": "ts-node --files src/server.ts",
   "execMap": {
     "ts": "node -r ts-node/register"
   }

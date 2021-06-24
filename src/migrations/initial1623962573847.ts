@@ -1,9 +1,12 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
+import bcrypt from 'bcryptjs';
+
 export class initial1623962573847 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `
+    await queryRunner
+      .query(
+        `
     START TRANSACTION;
     SELECT * FROM current_schema();
     SELECT TRUE FROM information_schema.columns WHERE table_name = 'pg_class' and column_name = 'relispartition';
@@ -21,7 +24,20 @@ export class initial1623962573847 implements MigrationInterface {
     ALTER TABLE "columns" ADD CONSTRAINT "FK_ac92bfd7ba33174aabef610f361" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
     COMMIT;
     `
-    );
+      )
+      .then(() =>
+        queryRunner.manager
+          .createQueryBuilder()
+          .insert()
+          .into('users')
+          .values({
+            id: '0b7d06fc-bc10-47b7-9f55-9a3d69b0a30e',
+            name: 'admin',
+            login: 'admin',
+            password: bcrypt.hashSync('admin'),
+          })
+          .execute()
+      );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
