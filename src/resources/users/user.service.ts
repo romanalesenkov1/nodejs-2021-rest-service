@@ -29,6 +29,14 @@ const create = (data: User) => {
 const getById = (id: string) => usersRepo.getById(id);
 
 /**
+ * Returns user by login
+ * @memberof user#
+ * @param {string} login - user login
+ * @returns {Promise<User>} user
+ */
+const getByLogin = (login: string) => usersRepo.getByLogin(login);
+
+/**
  * Updates a user
  * @memberof user#
  * @param {string} id - id of the user
@@ -51,4 +59,4 @@ const remove = async (id: string) => {
   return tasksService.unassignAllTasksByUserId(id);
 };
 
-export default { getAll, create, getById, update, remove };
+export default { getAll, create, getById, getByLogin, update, remove };

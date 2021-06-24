@@ -10,6 +10,7 @@ import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import loginRouter from './auth/login.router';
 import HttpException from './exceptions/HttpException';
 import { logger } from './middleware/logger';
 import 'reflect-metadata';
@@ -34,6 +35,7 @@ app.use('/', (req, res, next) => {
 
 app.use(logger.requestsLogger);
 
+app.use('/', loginRouter);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);

@@ -36,6 +36,19 @@ const getById = async (id: string) => {
 };
 
 /**
+ * Returns user by login
+ * @memberof user#
+ * @param {string} login
+ * @returns {Promise<User>}
+ */
+const getByLogin = async (login: string) => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne({ login });
+  if (!user) return null;
+  return user;
+};
+
+/**
  * Updates user
  * @memberof user#
  * @param {string} id
@@ -61,4 +74,4 @@ const remove = async (id: string) => {
   return userRepository.delete({ id });
 };
 
-export default { getAll, create, getById, update, remove };
+export default { getAll, create, getById, getByLogin, update, remove };

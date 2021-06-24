@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
 
 /**
  * @namespace user
